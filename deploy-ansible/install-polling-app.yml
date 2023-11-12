@@ -1,0 +1,14 @@
+---
+
+- name: mysql prerequisite
+  hosts: mysql
+  become: yes
+  roles:
+  - service-mysql
+
+- name: install polling-app
+  hosts: polling-app
+  become: yes
+  roles:
+  - service-docker
+  - service-install-run

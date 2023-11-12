@@ -1,0 +1,59 @@
+---
+  
+- name: Install MySQL
+  become: yes
+  apt:
+    name:
+    - mysql-server
+    - python3-pymysql
+
+    state: present
+    update_cache: yes
+    cache_valid_time: 600
+
+- name: Create user
+  become: yes
+  mysql_user:
+    login_user: "{{ item.root_name }}"
+    login_password : "{{ item.root_password }}"
+    name: "{{ item.user_name }}"
+    password: "{{ item.user_password }}"
+    state: present
+  with_items: "{{ mysql_settings.vars }}"
+  when: mysql_settings.vars is defined
+  
+
+- name: Create database
+  become: yes
+  mysql_db:
+    login_user: "{{ item.root_name }}"
+    login_password: "{{ item.root_password }}"
+    name: "{{ item.user_name }}"
+    state: present
+  with_items: "{{ mysql_settings.vars }}"
+  when: mysql_settings.vars is defined
+
+- name: Grant privileges to MySQL user
+  become: yes
+  mysql_user:
+    login_user: "{{ item.root_name }}"
+    login_password: "{{ item.root_password }}"
+    name: "{{ item.user_name }}"
+    host: 192.168.10.%
+    priv: "*.*:ALL"
+    state: present
+  with_items: "{{ mysql_settings.vars }}"
+  when: mysql_settings.vars is defined
+
+- name: Update MySQL bind address
+  become: yes
+  replace:
+    path: /etc/mysql/mysql.conf.d/mysqld.cnf
+    regexp: '^#?bind-address = .*$'
+    replace: 'bind-address = 0.0.0.0'
+
+- name: Restart MySQL service
+  become: yes
+  service:
+    name: mysql
+    state: restarted

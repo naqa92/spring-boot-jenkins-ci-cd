@@ -1,0 +1,16 @@
+---
+
+- src: http://gitlab.example.com/mypipeline/service-docker.git
+  name: service-docker
+  version: master
+  scm: git
+
+- src: http://gitlab.example.com/mypipeline/service-install-run.git
+  name: service-install-run
+  version: master
+  scm: git
+
+- src: http://gitlab.example.com/mypipeline/service-mysql.git
+  name: service-mysql
+  version: master
+  scm: git

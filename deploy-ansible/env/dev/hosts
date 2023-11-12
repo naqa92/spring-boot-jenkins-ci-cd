@@ -1,0 +1,8 @@
+all:
+  children:
+    polling-app:
+      hosts:
+        192.168.10.3:
+    mysql:
+      hosts:
+        192.168.10.6:

@@ -1,0 +1,3 @@
+mysql_settings:
+  vars:
+    - { db_name: "{{env}}", user_name: "vagrant", user_password: "vagrant", root_name: "root", root_password: "root" }

@@ -1,0 +1,44 @@
+---
+
+- name: create main directories
+  file:
+    dest: /naqa/etc/
+    mode: 0775
+    recurse: yes
+    state: directory
+
+- name: insert config file
+  template:
+    src: application.properties.j2
+    dest: /naqa/etc/application.properties
+    mode: 0755
+
+- name: insert docker-compose file
+  template:
+    src: docker-compose.yml.j2
+    dest: /naqa/etc/docker-compose.yml
+    mode: 0755
+
+- name: reload daemon before login
+  shell: "systemctl daemon-reload"
+
+- name: reload docker before login
+  shell: "systemctl restart docker"
+
+- name: login to registry
+  shell: "docker login {{ service_registry_url }} -u {{ service_registry_user }} -p {{ service_registry_password }}"
+
+- name: run docker-compose
+  shell: docker-compose -f /naqa/etc/docker-compose.yml down
+
+- name: run docker-compose
+  shell: docker-compose -f /naqa/etc/docker-compose.yml up -d
+
+- name: wait for instance
+  uri:
+    url: "http://127.0.0.1:8081/"
+    status_code: 404
+  register: result
+  until: result.status == 404
+  retries: 30
+  delay: 1

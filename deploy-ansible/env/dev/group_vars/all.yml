@@ -1,0 +1,10 @@
+env: dev
+docker_docker_conf:
+  userns-remap: "dockremap:dockremap"
+  insecure-registries: ["192.168.10.5:5000"]
+
+service_registry_url: "https://192.168.10.5:5000/v2/"
+service_registry_user: "myuser"
+service_registry_password: "password"
+
+# ansible_ssh_common_args: '-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
