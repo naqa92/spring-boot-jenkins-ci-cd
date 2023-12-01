@@ -15,7 +15,7 @@ Ce projet est inspiré par la série "Devenir Devops" de Xavki. L'application a 
 1. **Clone du repo**
 
 	```bash
-	git clone https://github.com/callicoder/spring-security-react-ant-design-polls-app.git
+	git clone https://github.com/naqa92/spring-boot-jenkins-ci-cd.git
 	cd vagrant
 	```
 
@@ -144,7 +144,8 @@ Ce projet est inspiré par la série "Devenir Devops" de Xavki. L'application a 
 
 ### Informations supplémentaires
 
-	Ce projet a pour but de mettre en place un pipeline CI/CD dans un environnement local de test. La sécurité n'est pas prise en compte pour des raisons de simplicité.
+	Ce projet a pour but de mettre en place un pipeline CI/CD dans un environnement local de test.
+ 	La sécurité n'est pas prise en compte pour des raisons de simplicité.
 
 	Voici une liste non exhaustive d'améliorations :
 
